@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETFLIX</title>
+    <link rel="icon" href="../public/img/Netflix_icon.svg.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+</head>
+
+<body>
+    <div style="margin-left: 40vh;">
+        <header>
+            <%- include('./partials/header.ejs') %>
+        </header>
+        <div class="row">
+            <aside>
+                <%- include('./partials/aside.ejs') %>
+            </aside>
+            <div class="col-md-10 mt-5">
+                <div class="row">
+                    <div class="container mt-5">
+                        <h2 class="fw-bold">Edit blog</h2>
+                        <% if (typeof blog !== 'undefined') { %>
+                            <form action="/update/<%= blog._id %>" method="post" enctype="multipart/form-data">
+                                <div class="form-group mb-4 mt-3">
+                                    <label class="fw-bold text-uppercase" for="Name">blog Name</label>
+                                    <input type="text" class="form-control border-2 border border-black" id="Name" name="Name" value="<%= blog.Name %>" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="fw-bold text-uppercase" for="Description">Description</label>
+                                    <textarea class="form-control border-2 border border-black" id="Description" name="Description" rows="7" required><%= blog.Description %></textarea>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <div id="uploadArea" class="upload-area">
+                                        <div class="upload-area__header">
+                                            <h1 class="upload-area__title">Upload your file</h1>
+                                            <p class="upload-area__paragraph">
+                                                File should be an image
+                                                <strong class="upload-area__tooltip">
+                                                    Like
+                                                    <span class="upload-area__tooltip-data"></span>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                                            <span class="drop-zoon__icon">
+                                                <i class='bx bxs-file-image'></i>
+                                            </span>
+                                            <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                                            <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+
+                                            <input type="hidden" name="existingImage" value="<%= blog.Image %>">
+                                            <% if (blog.Image) { %>
+                                                <img src="<%= blog.Image %>" alt="blog Image" width="100">
+                                            <% } %>
+                                            <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
+                                            <input type="file" id="Image" name="Image" class="drop-zoon__file-input" accept="image/*">
+                                        </div>
+                                        <div id="fileDetails" class="upload-area__file-details file-details">
+                                            <h3 class="file-details__title">Uploaded File</h3>
+                                            <div id="uploadedFile" class="uploaded-file">
+                                                <div class="uploaded-file__icon-container">
+                                                    <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                                                    <span class="uploaded-file__icon-text"></span>
+                                                </div>
+                                                <div id="uploadedFileInfo" class="uploaded-file__info">
+                                                    <span class="uploaded-file__name">Proejct 1</span>
+                                                    <span class="uploaded-file__counter">0%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger mb-5 mt-3 ms-3 fw-bold">Update blog</button>
+                            </form>
+                        <% } else { %>
+                            <p>Blog data is not available.</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../assets/js/main.js"></script>
+
+</html>
